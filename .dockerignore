@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+
+# Python
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.venv
+**/venv
+# Note: backend/.env is included (contains GEMINI_API_KEY etc)
+# Use AgentBase runtime env vars to override in production
+
+# Node
+frontend/node_modules
+frontend/.next/cache
+
+# AgentBase / local state
+.agentbase
+.agentbase-state.json
+.greennode.json
+
+# SQLite DB (use persistent volume or managed DB in production)
+*.db
+*.sqlite
+
+# Uploads
+uploads/
+
+# IDE
+.claude
+.idea
+.vscode
+*.swp
+
+# Docs
+README.md
+RUN.md
+AGENTS.md
+.agentbase/

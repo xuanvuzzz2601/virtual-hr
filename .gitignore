@@ -1,0 +1,38 @@
+# Platform / tooling
+.greennode.json
+.agentbase/
+.agentbase-state.json
+.claude/
+
+# Environment & secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Database & uploads
+*.db
+*.sqlite
+uploads/
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/.cache/
+frontend/tsconfig.tsbuildinfo
+
+# Build artifacts
+*.log
+dist/
+build/
