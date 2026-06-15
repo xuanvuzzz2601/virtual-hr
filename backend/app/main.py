@@ -5,7 +5,9 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+FRONTEND_DIST = Path(__file__).parent.parent.parent / "frontend_dist"
 
 from app.core.config import settings
 from app.core.security import get_password_hash
@@ -160,13 +162,27 @@ def create_app() -> FastAPI:
             "version": settings.APP_VERSION,
         }
 
-    @app.get("/", tags=["Root"])
-    def root():
-        return {
-            "message": f"Welcome to {settings.APP_NAME} API",
-            "version": settings.APP_VERSION,
-            "docs": "/docs",
-        }
+    # ---- Serve static frontend (plain HTML/CSS/JS SPA) ----
+    if FRONTEND_DIST.exists():
+        @app.get("/{full_path:path}", include_in_schema=False)
+        async def serve_spa(full_path: str):
+            # Never intercept API / docs routes
+            if full_path.startswith(("api/", "docs", "redoc", "openapi", "health")):
+                from fastapi import HTTPException
+                raise HTTPException(status_code=404)
+            direct = FRONTEND_DIST / full_path
+            if direct.is_file():
+                return FileResponse(str(direct))
+            # SPA fallback — JS router handles all routes
+            return FileResponse(str(FRONTEND_DIST / "index.html"))
+    else:
+        @app.get("/", tags=["Root"])
+        def root():
+            return {
+                "message": f"Welcome to {settings.APP_NAME} API",
+                "version": settings.APP_VERSION,
+                "docs": "/docs",
+            }
 
     return app
 

@@ -7,7 +7,7 @@ from app.models.interview import InterviewStatus
 
 
 class TranscriptMessage(BaseModel):
-    role: str           # "interviewer" | "candidate"
+    role: str  # "interviewer" | "candidate"
     content: str
     timestamp: Optional[str] = None
 
@@ -15,17 +15,6 @@ class TranscriptMessage(BaseModel):
 class InterviewSessionCreate(BaseModel):
     candidate_id: int
     jd_id: int
-
-
-class InterviewSessionUpdate(BaseModel):
-    status: Optional[InterviewStatus] = None
-    transcript: Optional[List[Dict[str, Any]]] = None
-
-
-class InterviewCredentials(BaseModel):
-    candidate_email: str
-    candidate_password: str
-    session_id: int
 
 
 class InterviewSessionRead(BaseModel):
@@ -39,6 +28,7 @@ class InterviewSessionRead(BaseModel):
     created_at: datetime
     candidate_user_id: Optional[int] = None
     candidate_plain_password: Optional[str] = None
+    candidate_email: Optional[str] = None  # actual login email for the candidate account
 
     model_config = {"from_attributes": True}
 
@@ -70,4 +60,4 @@ class GeminiSessionConfig(BaseModel):
     candidate_name: str
     job_title: str
     session_id: int
-    gemini_api_key: Optional[str] = None
+    # API key intentionally omitted — Gemini connection is proxied server-side via /live WS

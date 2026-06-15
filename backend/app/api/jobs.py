@@ -43,7 +43,7 @@ def _serialize_jd(jd: JobDescription, db: Session) -> JobDescriptionRead:
     )
 
 
-@router.get("/", response_model=List[JobDescriptionList])
+@router.get("", response_model=List[JobDescriptionList])
 def list_jobs(
     status_filter: Optional[JobStatus] = Query(None, alias="status"),
     skip: int = Query(0, ge=0),
@@ -82,7 +82,7 @@ def list_jobs(
     return result
 
 
-@router.post("/", response_model=JobDescriptionRead, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=JobDescriptionRead, status_code=status.HTTP_201_CREATED)
 def create_job(
     jd_in: JobDescriptionCreate,
     db: Session = Depends(get_db),

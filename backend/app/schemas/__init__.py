@@ -9,7 +9,7 @@ from app.schemas.candidate import CandidateRead, CandidateList
 from app.schemas.interview import (
     InterviewSessionCreate,
     InterviewSessionRead,
-    InterviewSessionUpdate,
+    InterviewCompleteRequest,
     InterviewEvaluationRead,
     GeminiSessionConfig,
 )
@@ -28,7 +28,7 @@ __all__ = [
     "CandidateList",
     "InterviewSessionCreate",
     "InterviewSessionRead",
-    "InterviewSessionUpdate",
+    "InterviewCompleteRequest",
     "InterviewEvaluationRead",
     "GeminiSessionConfig",
 ]
